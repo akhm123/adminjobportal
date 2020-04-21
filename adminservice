@@ -1,0 +1,59 @@
+ //iservice
+  [OperationContract]
+         DataSet GetUsers();
+
+        [OperationContract]
+        DataSet GetCompany();
+    
+    [OperationContract]
+        DataSet GetJobApplicationDetails();
+ 
+ //service
+ public DataSet GetUsers()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\socproject\jobportalservice\App_Data\Database1.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("Select * from [User] where Role=@user", con);
+            cmd.Parameters.AddWithValue("@user", "user");
+        //    cmd.Parameters.AddWithValue("@jobid", jobid);
+            cmd.ExecuteNonQuery();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return ds;
+        }
+        public DataSet GetCompany()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\socproject\jobportalservice\App_Data\Database1.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("Select * from [User] where Role=@user", con);
+            cmd.Parameters.AddWithValue("@user", "company");
+            //    cmd.Parameters.AddWithValue("@jobid", jobid);
+            cmd.ExecuteNonQuery();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return ds;
+        }
+        public DataSet GetJobApplicationDetails()
+        {
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\socproject\jobportalservice\App_Data\Database1.mdf;Integrated Security=True;Connect Timeout=30");
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("Select * from [JobApplication]", con);
+           // cmd.Parameters.AddWithValue("@user", "company");
+            //    cmd.Parameters.AddWithValue("@jobid", jobid);
+            cmd.ExecuteNonQuery();
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataSet ds = new DataSet();
+            sda.Fill(ds);
+            cmd.ExecuteNonQuery();
+            con.Close();
+            return ds;
+        }

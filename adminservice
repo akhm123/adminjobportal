@@ -7,8 +7,60 @@
     
     [OperationContract]
         DataSet GetJobApplicationDetails();
+        
+        
+        [OperationContract]
+        string DeleteUser(string username);
+        [OperationContract]
+        string DeleteCompany(string username);
  
  //service
+ 
+ 
+  public string DeleteUser(string username)
+        {
+            string message;
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\socproject\jobportalservice\App_Data\Database1.mdf;Integrated Security=True;Connect Timeout=30");
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Delete From [User] Where UserName=@name", con);
+            cmd.Parameters.AddWithValue("@name", username);
+           
+            int result = cmd.ExecuteNonQuery();
+            //int result = cmd.ExecuteNonQuery();
+            if (result == 1)
+            {
+                message = "deleted";
+            }
+            else
+            {
+                message = " Details not deleeted successfully";
+            }
+            con.Close();
+            return message;
+        }
+        public string DeleteCompany(string companyname)
+        {
+            string message;
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\socproject\jobportalservice\App_Data\Database1.mdf;Integrated Security=True;Connect Timeout=30");
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("Delete From [User] Where UserName=@name", con);
+            cmd.Parameters.AddWithValue("@name", companyname);
+
+            int result = cmd.ExecuteNonQuery();
+            //int result = cmd.ExecuteNonQuery();
+            if (result == 1)
+            {
+                message = "deleted";
+            }
+            else
+            {
+                message = " Details not deleeted successfully";
+            }
+            con.Close();
+            return message;
+        }
  public DataSet GetUsers()
         {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\socproject\jobportalservice\App_Data\Database1.mdf;Integrated Security=True;Connect Timeout=30");
